@@ -38,7 +38,38 @@ namespace Week2Content
 
 			var persons = XElement.Load(dataFile);
 
-			Console.WriteLine("Press any key to continue...");
+            // from 'person' -> variable
+            // persons -> list or collection
+            // select -> retrieves a given object from the list or
+            // allows us to project the elements into a new sequence
+            // retrieves the first name of each person in the collection
+            // when the program reaches this ine, the query will not run
+            var query = from person in persons.Elements()
+                        select person.Element("FirstName")?.Value;
+
+            //The above query and below loop are equivalent
+
+            var firstNames = new List<string>();
+
+            //this code will execute the query right away
+            foreach (var person in persons.Elements())
+            {
+                var firstName = person.Element("FirstName")?.Value;
+
+                firstNames.Add(firstName);
+
+                Console.WriteLine(firstName);
+            }
+
+            // the query is executed here
+
+            foreach(var firstName in query)
+            {
+                Console.WriteLine(firstName);
+            }
+
+
+            Console.WriteLine("Press any key to continue...");
 			Console.ReadKey();
 		}
 	}
